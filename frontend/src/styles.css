@@ -1,0 +1,571 @@
+:root {
+    --primary: #F0A500; 
+    --dark: #21232f; 
+    --danger: #d62828; 
+    --success: #06d6a0; 
+    --white: #f5f6f7; 
+}
+
+
+#root {
+    height: 100%; 
+    width: 100%; 
+    position: fixed; 
+}  
+
+header {
+    background-color: var(--primary); 
+}
+
+.custom-font-h1 {
+    font-family: 'Georgia', serif; 
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.custom-font-h2 {
+    font-family: 'Arial', sans-serif; 
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.container-fluid {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+header > div {
+    cursor: pointer; 
+    transition: 0.5s; 
+    padding: 10px 20px; 
+    text-align: right; 
+}
+
+
+header img {
+    width: 50px; 
+    border-radius: 100%; 
+    margin-left: 15px; 
+}
+
+header span:not(.mdi) {
+    margin-bottom: -10px; 
+}
+
+header span.mdi {
+    font-size: 20px; 
+    margin-left: 10px; 
+}
+
+header small {
+    display: block; 
+    margin-top: -20px; 
+}
+
+header ul li {
+    list-style: none; 
+    width: 100%; 
+    color: var(--dark); 
+    
+}
+
+header ul li a {
+    width: 100%; 
+    color: #fff; 
+    opacity: 1; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    padding: 10px 20px;  
+    margin: 2.5px 10px; 
+    transition: 0.5s; 
+    border-radius: 15px; 
+
+
+}
+
+header ul li a.active{
+    opacity: 1; 
+    background-color: #CF7500; 
+    
+   
+}
+
+header ul li a.active .mdi {
+    color: var(--white); 
+}
+
+header ul li a:visited, 
+header ul li a:focus {
+    color: #fff; 
+}
+
+header ul li a:hover {
+    opacity: 1; 
+    background-color: #CF7500; 
+}
+
+
+sidebar {
+    background-color: var(--dark); 
+}
+
+sidebar ul li {
+    list-style: none; 
+    width: 100%; 
+}
+
+sidebar ul li a {
+    width: 100%; 
+    color: #fff; 
+    opacity: 0.6; 
+    text-decoration: none; 
+    display: flex; 
+    align-items: center; 
+    padding: 10px 5px;  
+    margin: 2.5px 0; 
+    transition: 0.5s; 
+    border-radius: 5px; 
+}
+
+sidebar ul li a.active{
+    opacity: 1; 
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+sidebar ul li a.active .mdi {
+    color: var(--primary); 
+}
+
+sidebar ul li a:visited, 
+sidebar ul li a:focus {
+    color: #fff; 
+}
+
+sidebar ul li a:hover {
+    opacity: 1; 
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+sidebar ul li span.mdi {
+    font-size: 25px; 
+    margin: 0 15px;  
+}
+
+sidebar ul li a text { 
+    font-size: 5px; 
+}
+
+.review-card {
+    background-color: #F9ECD4;
+    border-radius: 20px;
+    border-color: #000;
+    padding: 20px;
+    margin: 20px 0;
+    width: 1200px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .stars {
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .reviewer-name {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .comment {
+    font-size: 16px;
+  }
+
+  /* Estilos para o título do procedimento */
+.procedimento-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Estilos para os detalhes do procedimento */
+  .procedimento-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Estilos para cada item de procedimento */
+  .procedimento-item {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  /* Estilo para a mensagem de carregamento */
+  .loading-message {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+  }
+  
+  .service-card {
+    background-color: #F9ECD4;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 10px auto; 
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 1300px; 
+}
+
+div.col-3 button.excluir {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+div.col-3 button.excluir:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+    transform: scale(1.2);
+}
+
+div.col-3 button.excluir:active {
+    transform: scale(0.95);
+}
+
+div.col-3 button.excluir i {
+    color: red;
+    font-size: 2rem;
+}
+
+  
+
+.col-sidebar {
+    height: 100px; /* Ajuste conforme necessário para garantir que haja espaço suficiente */
+}
+
+.div-meus-agendamentos {
+    display: flex;
+    justify-content: flex-end; /* Garante que o conteúdo esteja alinhado à direita */
+    align-items: flex-end; /* Garante que o conteúdo esteja alinhado ao fundo do contêiner */
+    height: 100px; /* Ajuste conforme necessário para garantir que haja espaço suficiente */
+}
+
+
+    
+.service-card .row {
+    width: 100%;
+}
+
+.container-limite {
+    max-width: 1000px; /* Ajuste para a largura desejada */
+    margin: 0 auto; /* Centraliza a div horizontalmente */
+}
+
+.date-picker-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(220, 188, 29, 0.1);
+  }
+  
+  .title {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .date-picker {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+  }
+
+  /* Estilos Gerais */
+.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Container do Slider */
+  .slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 90%;
+  }
+  
+  /* Slider */
+  .slider {
+    width: 100%;
+  }
+  
+  /* Wrapper dos Botões */
+  .button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+  }
+  
+  /* Botão de Agendamento */
+  .appointment-button {
+    background-color: #F0A500;  /* Cor padrão para inativo */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    width: 150px;
+    text-align: center;
+  }
+  
+  .appointment-button.active {
+    background-color: #4CAF50; /* Cor para ativo */
+  }
+  
+  /* Informações Adicionais */
+  .info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+    padding-left: 25px; /* Ajuste o valor conforme necessário */
+  }
+  
+  
+  
+  
+  
+  .date-picker:hover {
+    border-color: #007bff;
+    transition: border-color 0.3s ease;
+  }
+  
+  .date-picker:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.2);
+  }
+  
+
+.service-card .col-6.botao_reservar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.service-card button {
+    background-color:#4CAF50;
+    border-radius:100px;
+    padding:15px 32px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    border-style:hidden;
+    outline:none;
+    font-size: larger;
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave para efeitos */
+}
+
+.service-card button:hover {
+    background-color: #26930d;
+}
+
+@media screen and (min-width: 1200px) {
+    .service-card button {
+        font-size: xx-large;
+    }
+}
+
+.service-card .nome{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+
+.homeCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinha o conteúdo ao fundo */
+    height: 100vh; /* Garante que o container ocupe toda a altura da tela */
+}
+
+
+.adm-credentials-field {
+    border-color: #000;
+}
+
+.submit-adm {
+    margin: 5%;
+
+}
+
+.custom-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.custom-button:hover {
+    background-color: #45a049;
+}
+
+
+.div-spacing {
+    margin-bottom: 20px; 
+}
+
+
+.card-container {
+    background-color: #F9ECD4;
+    border-radius: 50px;
+    padding: 5px;
+    margin: 10px 10px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.card-container .row {
+    width: 100%;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column; /* Se você deseja empilhar os cartões verticalmente */
+    gap: 20px; /* Ajuste o valor conforme necessário para definir o espaçamento */
+  }
+  
+.dias-da-semana {
+    background-color: #e7e7e7;
+    height: 8%;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.card-container .name{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.details {
+    text-align: justify;
+}
+
+.content-section {
+    background-color: #F8EFD4;
+    border-radius: 15px;
+}
+
+/* Classe específica para o card de serviço */
+.servico-card-container {
+    background-color: #F9ECD4;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+}
+
+.servico-card-container .row {
+    width: 100%;
+}
+
+.servico-card-container .nome {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.servico-card-container .tempo_estimado, 
+.servico-card-container .preco {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.servico-card-container .botoes-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.servico-card-container .botao-editar,
+.servico-card-container .botao-excluir {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.servico-card-container .botao-editar i {
+    font-size: 1.5rem;
+    color: blue;
+}
+
+.servico-card-container .botao-excluir i {
+    font-size: 1.5rem;
+    color: red;
+}
+
+.servico-card-container .botao-editar:hover,
+.servico-card-container .botao-excluir:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(1.2);
+}
+
+.servico-card-container .botao-editar:active,
+.servico-card-container .botao-excluir:active {
+    transform: scale(0.95);
+}
