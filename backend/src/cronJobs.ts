@@ -1,6 +1,6 @@
 import cron from 'node-cron';
 import dbPool from './database/connection';
-import { sendMessage } from '../bot-wp/sendMessage';
+import { sendMessage } from './bot-wp/sendMessage';
 import { Queue } from './types/types';
 import { formatPhoneNumber } from './utils/utils';
 import appointmentService from './services/appointment.service';

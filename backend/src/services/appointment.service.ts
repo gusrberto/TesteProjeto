@@ -2,7 +2,7 @@ import dbPool from "../database/connection";
 import mysql from "mysql2/promise";
 import { Appointment, Queue, CustomerAppointment, AppointmentWithQueue, TimeSlot } from "../types/types";
 import { convertToSQLDate, formatPhoneNumber } from "../utils/utils";
-import { sendMessage } from "../../bot-wp/sendMessage";
+import { sendMessage } from "../bot-wp/sendMessage";
 
 const createAppointmentAndQueueService = async (appointmentBody: Appointment, queueBody: Partial<Queue>): Promise<number | undefined> => {
     const connection = await dbPool.getConnection();

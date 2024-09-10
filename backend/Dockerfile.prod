@@ -1,0 +1,39 @@
+# Utilizar uma versão leve do Node.js como base para reduzir o tamanho da imagem
+FROM node:20.16.0-slim
+
+# Instalar dependências necessárias para o Puppeteer
+RUN apt-get update && apt-get install -y \
+  libnss3 \
+  libatk-bridge2.0-0 \
+  libxcomposite1 \
+  libxrandr2 \
+  libasound2 \
+  libxdamage1 \
+  libgbm-dev \
+  libgtk-3-0 \
+  libx11-xcb1 \
+  --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+# Definir o diretório de trabalho
+WORKDIR /backend
+
+# Copiar package.json, package-lock.json e tsconfig.json
+COPY package*.json tsconfig.json ./
+
+# Instalar todas as dependências, incluindo as de desenvolvimento
+RUN npm install
+
+# Copiar o restante do código (incluindo src/)
+COPY . .
+
+# Compilar o TypeScript para JavaScript
+RUN npm run build
+
+# Remover as dependências de desenvolvimento após a compilação
+RUN npm prune --production
+
+# Expor a porta da aplicação
+EXPOSE 3000
+
+# Comando para rodar a aplicação
+CMD ["node", "dist/server.js"]
