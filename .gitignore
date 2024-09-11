@@ -2,3 +2,4 @@
 /backend/bot-wp/creds
 /backend/.wwebjs_cache
 .env
+.env.prod
