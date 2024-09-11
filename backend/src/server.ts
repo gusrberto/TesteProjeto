@@ -18,7 +18,7 @@ const start = async () => {
     try {
         // CORS
         fastify.register(fastifyCors, {
-            origin: 'http://localhost:8080',
+            origin: 'https://browstyle.netlify.app/',
             methods: ['GET', 'PATCH', 'POST', 'DELETE'],
             allowedHeaders: ['Content-Type', 'Authorization'],
             credentials: true
