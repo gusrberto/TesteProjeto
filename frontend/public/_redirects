@@ -1,8 +1,1 @@
-# Redirecionar todas as rotas para o index.html (necessário para React Router ou Vue Router)
-  /*    /index.html   200
-
-# Redirecionamento de uma URL antiga para uma nova
-  /old-page   /new-page   301
-
-# Redirecionar URLs com query params
-  /dashboard/*   /index.html   200
+/*    /index.html   200
