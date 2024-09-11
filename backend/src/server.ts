@@ -18,11 +18,20 @@ const start = async () => {
     try {
         // CORS
         fastify.register(fastifyCors, {
-            origin: 'https://browstyle.netlify.app/',
+            origin: (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {
+                const allowedOrigins = ['https://browstyle.netlify.app', 'https://browstyle.onrender.com'];
+                
+                if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                    cb(null, true);
+                } else {
+                    cb(new Error("Not allowed by CORS"));
+                }
+            },
             methods: ['GET', 'PATCH', 'POST', 'DELETE'],
             allowedHeaders: ['Content-Type', 'Authorization'],
             credentials: true
         });
+        
 
         // Registrar rotas
         fastify.register(procedureRoutes, { prefix: '/procedimento' });
