@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         const res = await login(data);
 
         if (res) {
-            if (res.status == 201) {
+            if (res.status === 201) {
                 const { token } = res.data;
 
                 Cookies.set('token', token, { 

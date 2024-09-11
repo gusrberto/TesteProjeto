@@ -23,7 +23,7 @@ const Autenticacao = () => {
 
     useEffect(() => {
         isAuthenticated(navigate);
-    }, []);
+    }, [navigate]);
 
     return(
         <div className="col p-5 overflow-auto h-100">

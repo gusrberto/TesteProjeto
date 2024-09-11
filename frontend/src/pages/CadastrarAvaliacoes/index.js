@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Rating from 'react-rating-stars-component';
-import { getProcedureById } from '../../store/modules/procedimento/sagas';
 import { getAppointmentById } from '../../store/modules/agendamento/sagas';
 import { postReview } from '../../store/modules/avaliacao/sagas';
 
@@ -19,27 +18,11 @@ const AvaliacaoServicos = () => {
 
   async function createReview(idAppointment, data) {
     try {
-      const response = await postReview(idAppointment, data);
-  
-      /* if (response) {
-        if (response.status === 201) {
-          FinalizarProcedimento();
-        }
-      } */
+      await postReview(idAppointment, data);
     } catch (error) {
       console.error('Erro ao cadastrar avaliação');
     }
   }
-
-  // Serviços simulados
-  const services = [
-    { id: 4, name: "Design Simples" },
-    { id: 5, name: "Micropigmentação" },
-    { id: 6, name: "Desenho de Sombrancelha" },
-  ];
-
-  // Filtra o serviço com base na ID extraída da URL
-  const selectedService = services.find(service => service.id === parseInt(id));
 
   // Estado para armazenar a avaliação do serviço selecionado
   const [avaliacao, setAvaliacao] = useState({
@@ -90,7 +73,7 @@ const AvaliacaoServicos = () => {
 
   useEffect(() => {
     findAppointmentById(id);
-  }, []);
+  }, [id]);
 
   return (
     <div className="col p-5 overflow-auto h-100">

@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import { useState, useEffect } from "react";
-import { postException, patchException, deleteException } from "../../store/modules/excecao/sagas";
+import { postException } from "../../store/modules/excecao/sagas";
 
 const AfastamentosModal = (props) => {
     const { startTime, endTime, isAvailable } = props.selectedExceptionData;

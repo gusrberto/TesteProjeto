@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { getAllProcedures, postProcedure, patchProcedure, deleteProcedure } from '../../store/modules/procedimento/sagas';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -11,14 +10,10 @@ let procedureData = {
 }
 
 export default function Procedimentos() {
-    const [isPrimeiroModalOpen, setIsPrimeiroModalOpen] = useState(false);
     const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
     const [isSuccessRemoveModalOpen, setIsSuccessRemoveModalOpen] = useState(false);
 
     const [procedimentos, setProcedimentos] = useState([]);
-    const [userName, setUserName] = useState('');
-    const [userPhone, setUserPhone] = useState('');
-    const [buttonData, setButtonData] = useState({});
     const [newService, setNewService] = useState({
       name: '',
       duration: '',
@@ -27,7 +22,6 @@ export default function Procedimentos() {
     const [isAddServiceModalOpen, setIsAddServiceModalOpen] = useState(false);
     const [isEditServiceModalOpen, setIsEditServiceModalOpen] = useState(false);
     const [editingService, setEditingService] = useState(null);
-    const navigate = useNavigate();
     const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
     const [serviceToDelete, setServiceToDelete] = useState(null);
 
@@ -129,22 +123,8 @@ export default function Procedimentos() {
       setIsAddServiceModalOpen(false);
     };
 
-    const fetchButtonData = async () => {
-      try {
-        const simulatedApiResponse = {
-          service1: { id: '1', name: 'Design Facial', tempo: 30, preco: 100 },
-          service2: { id: '2', name: 'Massagem Relaxante', tempo: 60, preco: 150 },
-          service3: { id: '3', name: 'Tratamento Capilar', tempo: 45, preco: 200 }
-        };
-        setButtonData(simulatedApiResponse);
-      } catch (error) {
-        console.error('Erro ao buscar dados dos serviços:', error);
-      }
-    };
-
     useEffect(() => {
       listAllProcedures();
-      //fetchButtonData();
     }, []);
 
     const ServicoCard = ({ service, onDelete, onEdit }) => {

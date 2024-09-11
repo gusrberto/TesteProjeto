@@ -1,24 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios'; // Importa o axios
-//import MeusAgendamentosCard from '../../components/MeusAgendamentosCard'; // Componente para exibir os serviços
 import 'bootstrap-icons/font/bootstrap-icons.css';
-//import { Card } from 'react-bootstrap';
 import { getAppointmentsFromCustomer, cancelAppointmentCustomer } from '../../store/modules/agendamento/sagas';
 
-
-
-
-export default function Agendamentos_Clientes() {
-  const [isPrimeiroModalOpen, setIsPrimeiroModalOpen] = useState(false);
-  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+export default function AgendamentosClientes() {
   const [agendamentos, setAgendamentos] = useState([]);
-  const [userName, setUserName] = useState('');
-  const [userPhone, setUserPhone] = useState('');
-  const [buttonData, setButtonData] = useState({});
-  const navigate = useNavigate();
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState(null); // Novo estado
   const location = useLocation();
@@ -48,16 +35,13 @@ export default function Agendamentos_Clientes() {
   
   useEffect(() => {
     listAllCustomerAppointments(telefone);
-  }, []); // Dependência para garantir que o telefone seja atualizado quando a URL mudar
-
+  }, [telefone]); // Dependência para garantir que o telefone seja atualizado quando a URL mudar
 
   const handleCloseConfirmationModal = () => setIsConfirmationModalOpen(false);
   const handleShowConfirmationModal = (id) => {
     setServiceToDelete(id); // Define o serviço a ser deletado
     setIsConfirmationModalOpen(true); // Abre o modal de confirmação
   };
-
-
 
   const ServicoCard = ({ service, onDelete }) => {
     const getStatusButtonVariant = (status) => {

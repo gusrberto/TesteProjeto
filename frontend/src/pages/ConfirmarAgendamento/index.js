@@ -9,12 +9,6 @@ const ConfirmacaoAgendamento = () => {
   const [appointment, setAppointment] = useState();
   const navigate = useNavigate();
 
-  const services = [
-    { id: 1, name: "Design Simples" },
-    { id: 2, name: "Micropigmentação" },
-    { id: 3, name: "Desenho de Sobrancelha" },
-  ];
-
   async function findAppointmentById(id) {
     const response = await getAppointmentById(id);
 
@@ -25,43 +19,11 @@ const ConfirmacaoAgendamento = () => {
 
   async function confirmCustomerAppointment(id) {
     try {
-      const response = await confirmAppointment(id);
-  
+      await confirmAppointment(id);
     } catch (error) {
       console.error('Erro ao confirmar agendamento');
     }
   }
-
-  const selectedService = services.find(service => service.id === parseInt(id));
-
-  const agendamentos = [
-    {
-      appointmentId: 1,
-      procedureName: "Design Simples",
-      appointmentStatus: "Confirmado",
-      appointmentSchedule: "10:00",
-      procedureDuration: 30,
-      procedurePrice: 50.0,
-    },
-    {
-      appointmentId: 2,
-      procedureName: "Micropigmentação",
-      appointmentStatus: "Agendado",
-      appointmentSchedule: "12:00",
-      procedureDuration: 60,
-      procedurePrice: 120.0,
-    },
-    {
-      appointmentId: 3,
-      procedureName: "Desenho de Sobrancelha",
-      appointmentStatus: "Cancelado",
-      appointmentSchedule: "14:00",
-      procedureDuration: 45,
-      procedurePrice: 80.0,
-    },
-  ];
-
-  const selectedAgendamento = agendamentos.find(agendamento => agendamento.appointmentId === parseInt(id));
 
   const intStatusToString = (status) => {
     switch (status) {
@@ -160,7 +122,7 @@ const ConfirmacaoAgendamento = () => {
 
   useEffect(() => {
     findAppointmentById(id);
-  }, []);
+  }, [id]);
 
   return (
     <div className="col p-5 overflow-auto h-100">

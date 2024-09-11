@@ -66,7 +66,7 @@ const Afastamentos = () => {
     useEffect(() => {
         sessionStatus(navigate)
             .then(() => listAllExceptions());
-    }, []);
+    }, [navigate]);
 
     // Função que estiliza os dias do calendário com base nas exceções
     const styleExceptions = (date) => {

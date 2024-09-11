@@ -110,7 +110,7 @@ export default function Agendamentos () {
 
     useEffect(() => {
         sessionStatus(navigate).then(() => listAllAppointments());
-    }, []);
+    }, [navigate]);
 
 
     

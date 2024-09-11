@@ -8,7 +8,7 @@ import Avaliacoes from './pages/Avaliacoes';
 import MeusAgendamentos from './pages/MeusAgendamentos';
 import Home from './pages/Home';
 import CadastrarAvaliacoes from './pages/CadastrarAvaliacoes';
-import Agendamentos_Clientes from './pages/Agendar';
+import AgendamentosClientes from './pages/Agendar';
 import Autenticacao from './pages/Autenticacao';
 import Servicos from './pages/Servico';
 import Funcionamento from './pages/Funcionamento';
@@ -47,7 +47,7 @@ const MainContent = () => {
                     <Route path="/avaliacoes" exact element={<Avaliacoes />} />
                     <Route path="/agendamentos" exact element={<Agendamentos />} />
                     <Route path="/procedimentos" exact element={<Procedimentos />} />
-                    <Route path='/agendar' exact element={<Agendamentos_Clientes />} />
+                    <Route path='/agendar' exact element={<AgendamentosClientes />} />
                     <Route path='/admin' exact element={<Autenticacao />} />
                     <Route path='/escolher-procedimento' exact element={<Servicos />} />
                     <Route path='/meus_agendamentos' exact element={<MeusAgendamentos />} />
