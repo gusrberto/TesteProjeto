@@ -7,8 +7,13 @@ services:
       - "3000:3000"
     env_file:
       - .env.prod
+    volumes:
+      - bot-wp-creds:/backend/src/bot-wp/creds
     networks:
       - backend-network
 
 networks:
   backend-network:
+
+volumes:
+  bot-wp-creds:

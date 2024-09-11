@@ -2,6 +2,9 @@ import Fastify from "fastify";
 import fastifyCors from "@fastify/cors";
 import { FastifyCorsOptions } from '@fastify/cors';
 
+// Instância do WhatsApp Web JS
+import './bot-wp/sendMessage'
+
 // Rotas
 import procedureRoutes from "./routes/procedure.route";
 import workScheduleRoutes from "./routes/workSchedule.route";
