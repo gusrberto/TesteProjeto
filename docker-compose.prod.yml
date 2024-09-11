@@ -11,6 +11,12 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./backend/db:/docker-entrypoint-initdb.d # Para inicializar com scripts SQL
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - backend-network
 
@@ -21,7 +27,8 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DB_HOST: db
       DB_USER: ${MYSQL_USER}
