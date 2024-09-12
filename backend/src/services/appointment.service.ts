@@ -167,10 +167,18 @@ const adminCancelAppointmentService = async (id: number): Promise<boolean> => {
 
 const finishingAppointmentService = async (id: number): Promise<number> => {
     try {
-        const [appointment] = await dbPool.query("SELECT status FROM APPOINTMENT WHERE idAppointment = ?", [id]);
+        const query = `
+            SELECT A.status, Q.customerPhone
+                FROM APPOINTMENT A
+                    JOIN \`QUEUE\` Q ON A.idAppointment = Q.idAppointment
+                WHERE A.idAppointment = ? AND Q.position = 1
+        `;
 
-        const rows = appointment as Partial<Appointment[]>;
+        const [appointment] = await dbPool.query(query, [id]);
+
+        const rows = appointment as Partial<Appointment[] & Queue[]>;
         const appointmentStatus = rows[0]?.status;
+        const customerPhone = rows[0]?.customerPhone;
     
         if (appointmentStatus === undefined)
             throw new Error("Agendamento não encontrado!");
@@ -180,6 +188,15 @@ const finishingAppointmentService = async (id: number): Promise<number> => {
         const [result] = await dbPool.query("UPDATE APPOINTMENT SET status = 2 WHERE idAppointment = ?", [id]);
 
         const okPacket = result as mysql.OkPacketParams;
+
+        if (customerPhone) {
+            const formattedPhone = formatPhoneNumber(customerPhone);
+            const message = `Seu agendamento foi finalizado com sucesso! Caso queira deixar uma avaliação relatando como foi sua experiência entre no link a seguir: https://browstyle.vercel.app/avaliar/${id}`;
+            
+            await sendMessage(formattedPhone, message);
+        } else {
+            throw new Error("Erro no envio de mensagem ao WhatsApp");
+        }
 
         return okPacket.affectedRows && okPacket.affectedRows > 0 ? 1 : 0; // true or false
     } catch (err) {

@@ -49,7 +49,7 @@ const start = async () => {
         console.log(`Server online at http://localhost:3000`);
 
         // Iniciar CronJob
-        startCronJobs();
+        // startCronJobs();
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);

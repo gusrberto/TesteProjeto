@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { getProcedureById } from "../../store/modules/procedimento/sagas";
 import { postAppointment, getAvailableSchedules, enterQueue } from "../../store/modules/agendamento/sagas";
 
-let formattedDate;
+//let formattedDate;
 let idAppointment = null;
 let appointmentData = {
   schedule: '',
@@ -28,7 +28,7 @@ const AgendamentosClientes = () => {
   
   const [procedimento, setProcedimento] = useState(null);
   const [schedules, setSchedules] = useState([]);
-
+  const [formattedDate, setFormattedDate] = useState('');
   const [searchParams] = useSearchParams();
   // Extrai o valor do parâmetro "servico" da query string
   const idProcedure = searchParams.get('id');
@@ -64,7 +64,8 @@ const AgendamentosClientes = () => {
   // Função para listar os horários disponíveis para um determinado dia
   async function listAvailableSchedules(id, schedule) {
     const response = await getAvailableSchedules(id, schedule);
-    setSchedules(response.data);
+    if (response)
+      setSchedules(response.data);
   }
 
   // Função para cadastrar um agendamento
@@ -161,11 +162,11 @@ const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 // Função para avançar e agendar
 const handleAvancarEAgendar = () => {
   setIsPrimeiroModalOpen(false);
-  if (idAppointment === '0')
+  if (idAppointment === '0') {
     createAppointment(idProcedure, appointmentData);
-  else
+  }else
     enterAppointmentQueue(queueData);
-  console.clear();
+  //console.clear();
 };
 
 const SegundoModal = ({ isOpen, onClose }) => {
@@ -269,11 +270,12 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
 
    // Função chamada ao selecionar uma data
   const handleDateChange = (date) => {
-    const formattedDate = date.toLocaleDateString('pt-BR');
+    const newFormattedDate = date.toLocaleDateString('pt-BR');
+    setFormattedDate(newFormattedDate);
     localStorage.setItem('selectedDate', formattedDate); // Armazena a data no localStorage
     setSelectedDate(date);  // Atualiza o estado com a data escolhida
-    listAvailableSchedules(idProcedure, formattedDate); // Busca os horários disponíveis
-    window.location.reload(); // Recarrega a página
+    listAvailableSchedules(idProcedure, newFormattedDate); // Busca os horários disponíveis
+    //window.location.reload(); // Recarrega a página
   };
 
 
@@ -301,6 +303,7 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
     if (savedDate) {
       const parsedDate = new Date(savedDate.split('/').reverse().join('/')); // Converte a data para o formato Date
       setSelectedDate(parsedDate); // Atualiza o estado com a data recuperada
+      setFormattedDate(savedDate);
       listAvailableSchedules(idProcedure, savedDate); // Busca os horários para a data recuperada
     }
     findProcedure(idProcedure);
@@ -339,7 +342,6 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
   // Função para alternar o valor do botão
   const toggleValue = (buttonId, e) => {
     idAppointment = e.target.getAttribute('data-id-appointment');
-
     if (formattedDate) {
       if (idAppointment === '0') {
         appointmentData.schedule = `${formattedDate} ${buttonData[buttonId].name}`;

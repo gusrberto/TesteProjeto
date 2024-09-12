@@ -42,7 +42,7 @@ const Header = () => {
                         to="/admin"
                         className={location.pathname === '/admin' ? 'active' : ''}
                         > 
-                        <span className="mdi mdi-account-multiple">Login</span> 
+                        <span className="mdi mdi-account-multiple">Admin</span> 
                        
                     </Link>
                 </li>

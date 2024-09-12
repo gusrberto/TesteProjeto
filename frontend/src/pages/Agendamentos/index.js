@@ -104,8 +104,8 @@ export default function Agendamentos () {
         markAppointmentAsCanceled(selectedEvent.id);
     }
 
-    const finishAppointment = () => {
-        markAppointmentAsFinished(selectedEvent.id);
+    const finishAppointment = async () => {
+        await markAppointmentAsFinished(selectedEvent.id);
     }
 
     useEffect(() => {
