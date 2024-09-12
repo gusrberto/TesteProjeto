@@ -14,12 +14,18 @@ export default function AgendamentosClientes() {
   const { telefone } = useParams();
   //const telefone = queryParams.get('telefone');
 
-  async function listAllCustomerAppointments(customerPhone) {
-    const response = await getAppointmentsFromCustomer(customerPhone);
+// Dentro da função de listagem
+async function listAllCustomerAppointments(customerPhone) {
+  console.log('Listando agendamentos para:', customerPhone);
+  const response = await getAppointmentsFromCustomer(customerPhone);
 
-    if (response)
-      setAgendamentos(response.data);
+  if (response && Array.isArray(response.data)) {
+    console.log('Agendamentos recebidos:', response.data);
+    setAgendamentos(response.data);
+  } else {
+    console.log('Nenhum agendamento encontrado ou erro na API');
   }
+}
 
   async function cancelAppointmentFromCustomer(id, customerPhone) {
     try {
