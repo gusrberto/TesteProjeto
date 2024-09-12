@@ -266,7 +266,7 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
   
   // Definir as datas indisponíveis
   // Estado para armazenar a data selecionada
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
    // Função chamada ao selecionar uma data
   const handleDateChange = (date) => {
@@ -291,10 +291,10 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 8,
-    slidesToScroll: 7
+    slidesToShow: Math.min(schedules.length, 8),
+    slidesToScroll: 1
   };
 
 
@@ -305,39 +305,49 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
       setSelectedDate(parsedDate); // Atualiza o estado com a data recuperada
       setFormattedDate(savedDate);
       listAvailableSchedules(idProcedure, savedDate); // Busca os horários para a data recuperada
+    } else {
+      const today = new Date();
+      const todayFormatted = today.toLocaleDateString('pt-BR');
+      setSelectedDate(today);
+      setFormattedDate(todayFormatted);
+      listAvailableSchedules(idProcedure, todayFormatted);
     }
     findProcedure(idProcedure);
   }, [idProcedure]); // Roda apenas uma vez ao carregar a página
   
   
   
+  // useEffect para atualizar buttonData e buttonValues quando schedules mudar
   useEffect(() => {
-    findProcedure(idProcedure);
-    if (schedules.length > 0) {  // Só roda quando schedules for atualizado
-        // Processar os horários disponíveis
-        const updatedButtonData = schedules.reduce((acc, schedule, index) => {
-            const key = `button${index + 1}`;
-            acc[key] = {
-                name: schedule.time,
-                value: schedule.queueCount.toString(),
-                idAppointment: schedule.idAppointment,
-                isActive: schedule.queueCount === 0  // Define 'true' se queueCount for 0, senão 'false'
-            };
-            return acc;
-        }, {});
-
-        // Atualizar o estado com os dados processados
-        setButtonData(updatedButtonData);
-
-        // Atualizar os valores dos botões com os dados booleanos
-        const apiButtonValues = Object.keys(updatedButtonData).reduce((acc, key) => {
-            acc[key] = updatedButtonData[key].isActive.toString();  // Converter booleano para string
-            return acc;
-        }, {});
-
-        setButtonValues(apiButtonValues);
+    if (schedules.length === 0) {
+      // Se não houver horários, limpa os botões
+      setButtonData({});
+      setButtonValues({});
+      return; // Para o código aqui se não houver horários
     }
-  }, [schedules, idProcedure]);  // Este useEffect será ativado sempre que 'schedules' mudar
+
+    const updatedButtonData = schedules.reduce((acc, schedule, index) => {
+      const key = `button${index + 1}`;
+      acc[key] = {
+        name: schedule.time,
+        value: schedule.queueCount.toString(),
+        idAppointment: schedule.idAppointment,
+        isActive: schedule.queueCount === 0  // Define 'true' se queueCount for 0, senão 'false'
+      };
+      return acc;
+    }, {});
+
+    // Atualizar o estado com os dados processados
+    setButtonData(updatedButtonData);
+
+    // Atualizar os valores dos botões com os dados booleanos
+    const apiButtonValues = Object.keys(updatedButtonData).reduce((acc, key) => {
+      acc[key] = updatedButtonData[key].isActive.toString();  // Converter booleano para string
+      return acc;
+    }, {});
+
+    setButtonValues(apiButtonValues);
+  }, [schedules]);  // Este useEffect será ativado sempre que 'schedules' mudar
   
   // Função para alternar o valor do botão
   const toggleValue = (buttonId, e) => {
@@ -388,27 +398,31 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
               <div className="mb-4 mt-5"></div>
                 <div className="mb-4 mt-5">
                 <h1 className="title">Horários Disponíveis</h1>
-                <div className="slider-container">
-                  <Slider {...settings} className="slider">
-                    {Object.keys(buttonData).map((id) => (
-                      buttonData[id] && (
-                        <div key={id} className="button-wrapper">
-                          <button
-                            id={id}
-                            data-id-appointment={buttonData[id].idAppointment}
-                            onClick={(e) => toggleValue(id, e)}
-                            className={`appointment-button ${buttonValues[id] === 'true' ? 'active' : 'inactive'}`}
-                          >
-                            {buttonData[id].name}
-                          </button>
-                          <div className="info">
-                            <p>{buttonData[id].value} pessoas na fila</p>
+                {schedules.length > 0 ? (
+                  <div className="slider-container">
+                    <Slider {...settings} className="slider">
+                      {Object.keys(buttonData).map((id) => (
+                        buttonData[id] && (
+                          <div key={id} className="button-wrapper">
+                            <button
+                              id={id}
+                              data-id-appointment={buttonData[id].idAppointment}
+                              onClick={(e) => toggleValue(id, e)}
+                              className={`appointment-button ${buttonValues[id] === 'true' ? 'active' : 'inactive'}`}
+                            >
+                              {buttonData[id].name}
+                            </button>
+                            <div className="info">
+                              <p>{buttonData[id].value} pessoas na fila</p>
+                            </div>
                           </div>
-                        </div>
-                      )
-                    ))}
-                  </Slider>
-                </div>
+                        )
+                      ))}
+                    </Slider>
+                  </div>
+                ) : (
+                  <p>Nenhum horário disponível para esta data</p>
+                )}
                 <div>   
                   <div>
                     <AgendamentosModal
