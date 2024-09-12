@@ -137,7 +137,7 @@ async function listAllCustomerAppointments(customerPhone) {
                 <div className="className=mb-5 mt-0">
                     <div className="d-flex flex-column">
               {/* Aqui está o mapeamento de serviços para renderizar cada um em um card */}
-              {Object.values(agendamentos).map((agendamento) => (
+              {agendamentos.map((agendamento) => (
                  <ServicoCard 
                     key={agendamento.appointmentId} 
                     service={agendamento} 
