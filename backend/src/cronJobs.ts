@@ -39,7 +39,7 @@ async function processAppointmentQueue(idAppointment: number) {
     if (queue.length > 0) {
         const customerPhone = queue[0].customerPhone;
         const formattedCustomerPhone = formatPhoneNumber(customerPhone);
-        await sendMessage(formattedCustomerPhone, `Você possui um agendamento marcado para *amanhã*, dia ${new Date().toLocaleDateString('en-GB').split('/').join('/')}. Por favor, confirme em até 4 horas ou o seu agendamento será cancelado!`);
+        await sendMessage(formattedCustomerPhone, `Você possui um agendamento marcado para *amanhã*. Por favor, confirme em até 4 horas ou o seu agendamento será cancelado! Link: http://34.72.133.92/confirmar/${idAppointment}`);
         
         // Em 4 horas verificar se o cliente confirmou o atendimento
         setTimeout(async () => {
