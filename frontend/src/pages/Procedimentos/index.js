@@ -144,8 +144,8 @@ export default function Procedimentos() {
                       </button>
                   </div>
   
-                  <div className="tempo_estimado">Tempo: {service.duration} minutos</div>
-                  <div className="preco">Preço: R$ {service.price}</div>
+                  <div className="tempo_estimado">Tempo Estimado: {service.duration} minutos</div>
+                  <div className="preco">Preço: {parseFloat(service.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</div>
               </div>
           </div>
       );

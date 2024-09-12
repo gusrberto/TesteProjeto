@@ -55,7 +55,7 @@ const MainContent = () => {
                     <Route path='/afastamento' exact element={<Afastamentos/>} />
                     <Route path='/avaliar/:id' exact element={<CadastrarAvaliacoes/>} />
                     <Route path="/createurl" element={<ServiceList />} />
-                    <Route path="/confirmacao_agendamento/:id" element={<ConfirmacaoAgendamento/>} />
+                    <Route path="/confirmar/:id" element={<ConfirmacaoAgendamento/>} />
                 </Switch>
             </div>
         </div>

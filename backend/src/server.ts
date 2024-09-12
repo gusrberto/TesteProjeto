@@ -21,7 +21,7 @@ const fastify = Fastify({ logger: true });
 // CORS
 fastify.register(fastifyCors, {
     origin: (origin: string | undefined, cb: (err: Error | null, allow: boolean) => void) => {
-        const allowedOrigins = ['https://browstyle.netlify.app', 'https://browstyle.onrender.com'];
+        const allowedOrigins = ['https://browstyle.netlify.app', 'https://browstyle.onrender.com', 'http://localhost:8080'];
         
         if (!origin || allowedOrigins.includes(origin)) {
             cb(null, true);

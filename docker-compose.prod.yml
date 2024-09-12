@@ -1,19 +1,50 @@
 services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306" # Mapear a porta correta (3306) para MySQL
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/db:/docker-entrypoint-initdb.d # Para inicializar com scripts SQL
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - backend-network
+
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
     ports:
       - "3000:3000"
-    env_file:
-      - .env.prod
     volumes:
       - bot-wp-creds:/backend/src/bot-wp/creds
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: ${MYSQL_DATABASE}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      SECRET_JWT: ${SECRET_JWT}
     networks:
       - backend-network
 
+volumes:
+  db_data:
+  bot-wp-creds:
+
 networks:
   backend-network:
-
-volumes:
-  bot-wp-creds:

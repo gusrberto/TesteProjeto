@@ -5,7 +5,6 @@ const dbPool = mysql.createPool({
     user: process.env.DB_USER,          // Usuário com permissões para acessar o banco de dados
     password: process.env.DB_PASSWORD,  // Senha do usuário
     database: process.env.DB_NAME,      // Nome do banco de dados
-    port: Number(process.env.DB_PORT) || 3306   // Porta do banco de dados (use a padrão 3306 se não especificado)
 });
 
 (async () => {

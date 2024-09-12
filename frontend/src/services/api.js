@@ -1,7 +1,7 @@
 import axios from 'axios'; 
 
 const api = axios.create({
-    baseURL: 'https://browstyle.onrender.com',
+    baseURL: 'http://localhost:3000',
     withCredentials: true,
 });
 

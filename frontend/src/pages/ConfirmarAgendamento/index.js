@@ -21,7 +21,7 @@ const ConfirmacaoAgendamento = () => {
     try {
       await confirmAppointment(id);
     } catch (error) {
-      console.error('Erro ao confirmar agendamento');
+      console.error(`Erro ao confirmar agendamento: ${error}`);
     }
   }
 
@@ -111,12 +111,9 @@ const ConfirmacaoAgendamento = () => {
    
   );
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     // Adicione a lógica para confirmar o agendamento aqui
-    confirmCustomerAppointment(appointment.idAppointment);
-
-    //alert("Agendamento confirmado!");
-    window.location.reload();
+    await confirmCustomerAppointment(appointment.idAppointment);
     navigate(`/meus_agendamentos?telefone=${appointment.customerPhone}`);
   };
 
