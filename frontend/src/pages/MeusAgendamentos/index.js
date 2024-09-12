@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { getAppointmentsFromCustomer, cancelAppointmentCustomer } from '../../store/modules/agendamento/sagas';
 
@@ -8,9 +9,10 @@ export default function AgendamentosClientes() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [serviceToDelete, setServiceToDelete] = useState(null); // Novo estado
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const telefone = queryParams.get('telefone');
+  //const location = useLocation();
+  //const queryParams = new URLSearchParams(location.search);
+  const { telefone } = useParams();
+  //const telefone = queryParams.get('telefone');
 
   async function listAllCustomerAppointments(customerPhone) {
     const response = await getAppointmentsFromCustomer(customerPhone);

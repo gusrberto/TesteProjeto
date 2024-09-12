@@ -50,7 +50,7 @@ const MainContent = () => {
                     <Route path='/agendar' exact element={<AgendamentosClientes />} />
                     <Route path='/admin' exact element={<Autenticacao />} />
                     <Route path='/escolher-procedimento' exact element={<Servicos />} />
-                    <Route path='/meus_agendamentos' exact element={<MeusAgendamentos />} />
+                    <Route path='/meus-agendamentos/:telefone' exact element={<MeusAgendamentos />} />
                     <Route path='/funcionamento' exact element={<Funcionamento/>} />
                     <Route path='/afastamento' exact element={<Afastamentos/>} />
                     <Route path='/avaliar/:id' exact element={<CadastrarAvaliacoes/>} />
