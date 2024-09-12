@@ -15,10 +15,19 @@ async function delayedPromise(promise: () => Promise<any>, delayTime: number) {
 }
 
 async function getAppointmentsForNextDay() {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const startDate = tomorrow.toISOString().split('T')[0] + ' 00:00:00';
-    const endDate = tomorrow.toISOString().split('T')[0] + ' 23:59:59';
+    const now = new Date();
+    // Ajusta o horário atual para UTC-3 (desloca 3 horas para trás)
+    const utcMinus3 = new Date(now.getTime() - (3 * 60 * 60 * 1000));
+    
+    // Define a data de amanhã
+    utcMinus3.setDate(utcMinus3.getDate() + 1);
+    
+    // Gera o início e o fim do dia de amanhã em UTC-3
+    const startDate = utcMinus3.toISOString().split('T')[0] + ' 00:00:00';
+    const endDate = utcMinus3.toISOString().split('T')[0] + ' 23:59:59';
+    
+    console.log(startDate);
+    console.log(endDate);
 
     const [appointments]: [any[], any] = await dbPool.query(
         "SELECT idAppointment FROM APPOINTMENT WHERE schedule BETWEEN ? AND ?",
@@ -68,7 +77,7 @@ async function processAppointmentQueue(idAppointment: number) {
             } else if (appointmentStatus.length > 0 && appointmentStatus[0].status === 1) {
                 console.log("Atendimento foi confirmado!");
             }
-        }, 4 * 60 * 60 * 1000); // 4 horas em milissegundos
+        }, 60000); // 4 horas em milissegundos
     }
     console.log(`Verificação para agendamento ${idAppointment} encerrada.`);
 }
@@ -76,7 +85,7 @@ async function processAppointmentQueue(idAppointment: number) {
 const delayTime = 20000; // Intervalo de 20 segundos
 
 export function startCronJobs() {
-    cron.schedule('15 10 * * *', async () => {
+    cron.schedule('*/1 * * * *', async () => {
         const currentDate = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
         console.log(`CronJob iniciado às: ${currentDate}`);
 
