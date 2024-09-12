@@ -59,6 +59,8 @@ const AgendamentosClientes = () => {
     setProcedimento(response.data);
   }
 
+
+  
   // Função para listar os horários disponíveis para um determinado dia
   async function listAvailableSchedules(id, schedule) {
     const response = await getAvailableSchedules(id, schedule);
@@ -265,12 +267,16 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
   // Estado para armazenar a data selecionada
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // Função chamada ao selecionar uma data
+   // Função chamada ao selecionar uma data
   const handleDateChange = (date) => {
-    formattedDate = date.toLocaleDateString('pt-BR');
-    listAvailableSchedules(idProcedure, formattedDate);
+    const formattedDate = date.toLocaleDateString('pt-BR');
+    localStorage.setItem('selectedDate', formattedDate); // Armazena a data no localStorage
     setSelectedDate(date);  // Atualiza o estado com a data escolhida
+    listAvailableSchedules(idProcedure, formattedDate); // Busca os horários disponíveis
+    window.location.reload(); // Recarrega a página
   };
+
+
 
   const [isPrimeiroModalOpen, setIsPrimeiroModalOpen] = useState(false);
        
@@ -289,6 +295,19 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
     slidesToScroll: 7
   };
 
+
+  useEffect(() => {
+    const savedDate = localStorage.getItem('selectedDate'); // Recupera a data do localStorage
+    if (savedDate) {
+      const parsedDate = new Date(savedDate.split('/').reverse().join('/')); // Converte a data para o formato Date
+      setSelectedDate(parsedDate); // Atualiza o estado com a data recuperada
+      listAvailableSchedules(idProcedure, savedDate); // Busca os horários para a data recuperada
+    }
+    findProcedure(idProcedure);
+  }, [idProcedure]); // Roda apenas uma vez ao carregar a página
+  
+  
+  
   useEffect(() => {
     findProcedure(idProcedure);
     if (schedules.length > 0) {  // Só roda quando schedules for atualizado
