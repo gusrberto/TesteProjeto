@@ -34,6 +34,7 @@ export default function AgendamentosClientes() {
   }
   
   useEffect(() => {
+    console.log(telefone);
     listAllCustomerAppointments(telefone);
   }, [telefone]); // Dependência para garantir que o telefone seja atualizado quando a URL mudar
 
