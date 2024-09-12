@@ -105,7 +105,11 @@ export async function finishAppointmentAdmin(id) {
         return response;
     } catch (err) {
         if (err.response) {
-            await Swal.fire("Erro!", err.response.data.message, "error");
+            // Generalize a extração da mensagem de erro
+            const message = err.response.data?.message || err.response.data?.appointmentController || "Erro desconhecido";
+            await Swal.fire("Erro!", message, "error");
+        } else {
+            await Swal.fire("Erro!", "Erro de conexão ou problema desconhecido", "error");
         }
         throw err;
     }
