@@ -59,6 +59,8 @@ const AgendamentosClientes = () => {
     setProcedimento(response.data);
   }
 
+
+  
   // Função para listar os horários disponíveis para um determinado dia
   async function listAvailableSchedules(id, schedule) {
     const response = await getAvailableSchedules(id, schedule);
