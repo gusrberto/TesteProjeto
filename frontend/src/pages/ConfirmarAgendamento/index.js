@@ -114,7 +114,7 @@ const ConfirmacaoAgendamento = () => {
   const handleConfirm = async () => {
     // Adicione a lógica para confirmar o agendamento aqui
     await confirmCustomerAppointment(appointment.idAppointment);
-    navigate(`/meus_agendamentos?telefone=${appointment.customerPhone}`);
+    navigate(`/meus-agendamentos/${appointment.customerPhone}`);
   };
 
   useEffect(() => {

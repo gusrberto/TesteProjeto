@@ -31,7 +31,7 @@ const Servicos = () => {
         } else {
             // Se o telefone for válido, fecha o modal e navega para 'Meus Agendamentos'
             setShowModal(false);
-            navigate(`/meus_agendamentos?telefone=${encodeURIComponent(telefone)}`);
+            navigate(`/meus-agendamentos/${telefone}`);
         }
     };
 

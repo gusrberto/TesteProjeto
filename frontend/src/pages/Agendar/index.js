@@ -48,9 +48,9 @@ const AgendamentosClientes = () => {
     console.clear();
 
     if (idAppointment === '0')
-      navigate(`/meus_agendamentos?telefone=${appointmentData.customerPhone}`); // Substitua '/nova-pagina' pela rota desejada
+      navigate(`/meus-agendamentos/${appointmentData.customerPhone}`); // Substitua '/nova-pagina' pela rota desejada
     else
-      navigate(`/meus_agendamentos?telefone=${queueData.customerPhone}`);
+      navigate(`/meus-agendamentos/${queueData.customerPhone}`);
   };
 
   // Função para pegar as informações do procedimento escolhido
