@@ -43,7 +43,6 @@ const AvaliacaoServicos = () => {
       reviewData.anonymous = "1";
     else
       reviewData.anonymous = "0";
-    console.log(reviewData);
     createReview(appointment.idAppointment, avaliacao);
   };
 

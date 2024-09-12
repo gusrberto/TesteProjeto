@@ -99,8 +99,6 @@ export default function Procedimentos() {
       procedureData.name = editingService.name;
       procedureData.price = editingService.price;
       const idProcedure = editingService.idProcedure;
-      console.log(procedureData);
-      console.log(idProcedure);
 
       updateProcedure(idProcedure, procedureData);
 
@@ -109,7 +107,6 @@ export default function Procedimentos() {
     };
 
     const handleDelete = async () => {
-      console.log(serviceToDelete);
       removeProcedure(serviceToDelete);
       setIsConfirmationModalOpen(false);
       

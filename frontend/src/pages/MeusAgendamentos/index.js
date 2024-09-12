@@ -16,14 +16,9 @@ export default function AgendamentosClientes() {
 
 // Dentro da função de listagem
 async function listAllCustomerAppointments(customerPhone) {
-  console.log('Listando agendamentos para:', customerPhone);
   const response = await getAppointmentsFromCustomer(customerPhone);
-  console.log(response);
   if (response && Array.isArray(response.data)) {
-    console.log('Agendamentos recebidos:', response.data);
     setAgendamentos(response.data);
-  } else {
-    console.log('Nenhum agendamento encontrado ou erro na API');
   }
 }
 
@@ -42,7 +37,6 @@ async function listAllCustomerAppointments(customerPhone) {
   }
   
   useEffect(() => {
-    console.log(telefone);
     listAllCustomerAppointments(telefone);
   }, [telefone]); // Dependência para garantir que o telefone seja atualizado quando a URL mudar
 

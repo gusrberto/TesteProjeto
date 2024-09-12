@@ -56,9 +56,7 @@ const AfastamentosModal = (props) => {
             endTime: formData.endTime,
             isAvailable: isAvailable ? "1" : "0",
         };
-        //console.log(data);
         createException(data);
-        //props.setModalPage("confirmação");
     };
 
     const handleInputChange = (ev) => {
