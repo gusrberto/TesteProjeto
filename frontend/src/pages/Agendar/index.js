@@ -1,12 +1,8 @@
-//import { useState } from "react";
-import AgendarCard from "../../components/AgendarURLQuerry";
-import { Link, useNavigate } from "react-router-dom";
-//import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { useSearchParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { setHours, setMinutes } from 'date-fns';
 import Slider from 'react-slick'; // Importa o componente Slider do react-slick
 import { Modal, Button } from 'react-bootstrap';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -27,11 +23,10 @@ let queueData = {
   customerPhone: ''
 }
 
-const Agendamentos_Clientes = () => {
+const AgendamentosClientes = () => {
   const navigate = useNavigate(); // Hook para navegação
   
   const [procedimento, setProcedimento] = useState(null);
-  const [agendamento, setAgendamento] = useState(null);
   const [schedules, setSchedules] = useState([]);
 
   const [searchParams] = useSearchParams();
@@ -56,10 +51,6 @@ const Agendamentos_Clientes = () => {
       navigate(`/meus_agendamentos?telefone=${appointmentData.customerPhone}`); // Substitua '/nova-pagina' pela rota desejada
     else
       navigate(`/meus_agendamentos?telefone=${queueData.customerPhone}`);
-  };
-  const EditarServiço = () => {
-    navigate('/escolher-procedimento'); // Substitua '/nova-pagina' pela rota desejada
-  
   };
 
   // Função para pegar as informações do procedimento escolhido
@@ -103,8 +94,6 @@ const Agendamentos_Clientes = () => {
     }
   }
   
- 
-  const handleOpenPrimeiroModal = () => setIsPrimeiroModalOpen(true);
   const handleClosePrimeiroModal = () => setIsPrimeiroModalOpen(false);
 
   // Função para abrir o SegundoModal
@@ -276,19 +265,22 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
   // Estado para armazenar a data selecionada
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // Função chamada ao selecionar uma data
+   // Função chamada ao selecionar uma data
   const handleDateChange = (date) => {
-    formattedDate = date.toLocaleDateString('pt-BR');
-    listAvailableSchedules(idProcedure, formattedDate);
+    const formattedDate = date.toLocaleDateString('pt-BR');
+    localStorage.setItem('selectedDate', formattedDate); // Armazena a data no localStorage
     setSelectedDate(date);  // Atualiza o estado com a data escolhida
+    listAvailableSchedules(idProcedure, formattedDate); // Busca os horários disponíveis
+    window.location.reload(); // Recarrega a página
   };
+
+
 
   const [isPrimeiroModalOpen, setIsPrimeiroModalOpen] = useState(false);
        
   // Estado para armazenar os valores dos botões
   const [buttonValues, setButtonValues] = useState({});
   const [buttonData, setButtonData] = useState({});
-  const [lastClickedButton, setLastClickedButton] = useState(null); // Armazena o último botão clicado
   const [showModal, setShowModal] = useState(false); // Controle do modal
   const [modalContent, setModalContent] = useState(''); // Conteúdo do modal
   
@@ -301,6 +293,19 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
     slidesToScroll: 7
   };
 
+
+  useEffect(() => {
+    const savedDate = localStorage.getItem('selectedDate'); // Recupera a data do localStorage
+    if (savedDate) {
+      const parsedDate = new Date(savedDate.split('/').reverse().join('/')); // Converte a data para o formato Date
+      setSelectedDate(parsedDate); // Atualiza o estado com a data recuperada
+      listAvailableSchedules(idProcedure, savedDate); // Busca os horários para a data recuperada
+    }
+    findProcedure(idProcedure);
+  }, [idProcedure]); // Roda apenas uma vez ao carregar a página
+  
+  
+  
   useEffect(() => {
     findProcedure(idProcedure);
     if (schedules.length > 0) {  // Só roda quando schedules for atualizado
@@ -327,7 +332,7 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
 
         setButtonValues(apiButtonValues);
     }
-  }, [schedules]);  // Este useEffect será ativado sempre que 'schedules' mudar
+  }, [schedules, idProcedure]);  // Este useEffect será ativado sempre que 'schedules' mudar
   
   // Função para alternar o valor do botão
   const toggleValue = (buttonId, e) => {
@@ -472,4 +477,4 @@ const SuccessChecklistModal = ({ isOpen, onClose }) => {
     );  
 };
 
-export default Agendamentos_Clientes;  
+export default AgendamentosClientes;  
